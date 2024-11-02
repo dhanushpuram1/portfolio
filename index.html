@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio Website</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/9ee2c8019b.js" crossorigin="anonymous"></script>
+    <style>
+        /* Additional CSS for smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            color: #fff;
+        }
+
+        #header {
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Fixed background */
+        }
+
+        .container {
+            padding: 10px 10%;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            width: 140px;
+        }
+
+        nav ul li {
+            display: inline-block;
+            list-style: none;
+            margin: 10px 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            background: #ff004f;
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            transition: 0.5s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .header-text {
+            margin-top: 20%;
+            font-size: 30px;
+        }
+
+        .header-text h1 {
+            font-size: 60px;
+            margin-top: 20px;
+        }
+
+        .header-text h1 span {
+            color: #ff004f;
+        }
+
+        #about {
+            padding: 80px 0;
+            color: #ababab;
+            text-align: center;
+            background-color: transparent; /* Set background to transparent */
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .about-col-1 img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .about-col-1 {
+            width: 35%;
+        }
+
+        .about-col-2 {
+            flex-basis: 60%;
+        }
+
+        .sub-title {
+            font-size: 60px;
+        }
+
+        .tab-titles {
+            display: flex;
+            margin: 20px 0 40px;
+        }
+
+        .tab-links {
+            margin-right: 50px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tab-links::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            background: #ff004f;
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            transition: 0.5s;
+        }
+
+        .tab-links.active-link::after {
+            width: 50%;
+        }
+
+        .tab-contents ul li {
+            list-style: none;
+            margin: 10px 0;
+        }
+
+        .tab-contents ul li {
+            color: #ff004f;
+            font-size: 14px;
+        }
+
+        .tab-contents {
+            display: none;
+        }
+
+        .tab-contents.active-tab {
+            display: block;
+        }
+
+        /* /-------------------Achievements---------/ */
+        #achievements {
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        #achievements h1 {
+            font-size: 40px;
+        }
+
+        #achievements p {
+            font-size: 16px;
+        }
+
+        #achievements ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        #achievements ul li {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .achievements-info {
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        /* /-------------------Portfolio---------/ */
+        #portfolio {
+            padding: 50px 0;
+        }
+
+        #portfolio h1 {
+            font-size: 40px;
+        }
+
+        #portfolio p {
+            font-size: 16px;
+        }
+
+        .work-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 20px;
+            margin-top: 30px;
+        }
+
+        .work {
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+        }
+
+        .work img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .work:hover .layer {
+            opacity: 1;
+        }
+
+        /* /------------------Contact----------------------/ */
+        #contact {
+            padding: 50px 0;
+            background: #101010;
+        }
+
+        #contact h1 {
+            text-align: center;
+            font-size: 60px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ff004f;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid #ff004f;
+            background-color: transparent;
+            color: #fff;
+            padding: 10px 0;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-bottom: 2px solid #fff;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ff004f;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #e6004f;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var tablinks = document.getElementsByClassName("tab-links");
+        var tabcontents = document.getElementsByClassName("tab-contents");
+    
+        function opentab(event, tabname) {
+            // Remove active link class from all tab links
+            for (let tablink of tablinks) {
+                tablink.classList.remove("active-link");
+            }
+            // Remove active tab class from all tab contents
+            for (let tabcontent of tabcontents) {
+                tabcontent.classList.remove("active-tab");
+            }
+            // Add active link class to the current tab link
+            event.currentTarget.classList.add("active-link");
+            // Add active tab class to the selected tab content
+            document.getElementById(tabname).classList.add("active-tab");
+        }
+    
+        // Handle form submission
+        document.querySelector("form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+            const name = event.target[0].value;
+            const email = event.target[1].value;
+            const message = event.target[2].value;
+    
+            // Simple validation (you can extend this as needed)
+            if (name && email && message) {
+                alert(`Thank you, ${name}! Your message has been sent.`);
+                event.target.reset(); // Reset the form
+            } else {
+                alert("Please fill in all fields.");
+            }
+        });
+    </script>
+    
+    <div id="header">
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="#header">HOME</a></li>
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#achievements">ACHIEVEMENTS</a></li>
+                    <li><a href="#portfolio">PROJECTS</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="header-text">
+                <h1>Hi, I'm <span>Dhanush puram</span><br>from Andhra Pradesh </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div id="about">
+        <div class="container">
+            <div class="row">
+                <div class="about-col-1">
+                    <img src="img/photo.jpg" alt="User Image">
+                </div>
+                <div class="about-col-2">
+                    <h1 class="about-me">About Me</h1>
+                    <p>
+                        Hello! I'm Dhanush puram,
+ a 2nd-year BTech student specializing in Computer Science and 
+ Engineering with specializationon cloud computing
+ . I have a passion for learning new technologies and applying my skills to real-world projects.
+ I'm Dhanush, an engineering student with a passion for technology and problem-solving.
+  Currently honing my skills in both software development and trading, I strive to make a positive impact in every project I undertake. 
+  Alongside my technical expertise, I am committed to continuous learning and personal growth. 
+  My goal is to secure a role where I can leverage my engineering background, support my family, and grow in a dynamic field.
+  My goal is to grow professionally, secure a high-paying role, and make a positive impact. With an eye toward both technical mastery and strategic thinking, I’m driven to create a meaningful career while also supporting my family. Known for my persistence and dedication, I’m always excited to learn, collaborate, and take on challenges that push me to evolve.
+
+Outside of academics, I’m a Batman fan, earning me the nickname "Batman" among my friends for my determination. I look forward to building a future that blends my love for engineering with continuous improvement and innovations
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievements Section -->
+    <div id="achievements">
+        <div class="container">
+            <h1>My Achievements</h1>
+            <p>
+                Here are some of my academic achievements and skills that highlight my capabilities.
+            </p>
+            <ul>
+                <li> - Proficient in C++</li>  
+                <image src="img/c3.jpg" alt="achievments image" />              
+                <li> - Proficient in HTML</li>   
+                <li> - Proficient in CSS</li>   
+                <image src="img/c50.jpg" alt="achievments image" /> 
+                <h1> My cerificates</h1>
+                <p>
+                    Here are some of my academic certificates and skills that highlight my capabilities.
+                </p>
+                
+                
+            </ul>
+            <div class="achievements-info">
+                <p></p>
+                <p></p>
+                <image src="img/c1.jpg" alt="achievments image" />
+                <image src="img/c2.jpg" alt="achievments image" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div id="portfolio">
+        <div class="container">
+            <h1 class="sub-title">My Projects</h1>
+            <p>
+                Here are some of the projects I have worked on, showcasing my skills and creativity in software development.
+            </p>
+            <div class="work-list">
+                <div class="work">
+                    <img src="https://kredily.com/wp-content/uploads/2024/04/Importance-Employee-Profiles-4-1024x529.jpg" alt="Online Banking System Image">
+                    <h3>Emplyoee data management</h3>
+                    <p>An Employee Data Management System in C helps organizations efficiently store, manage, and retrieve employee information for streamlined HR and administrative operations.</p>
+                </div>
+                <div class="work">
+                    <img src="https://i.ytimg.com/vi/ADLPGilnWZE/maxresdefault.jpg" alt="Student Outpass System Image">
+                    <h3>crime management</h3>
+                    <p>A Crime Management System in Java helps law enforcement manage, track, and analyze crime data efficiently for improved case handling and public safety. </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact">
+        <div class="container">
+            <h1>Contact Me</h1>
+            <form action="#">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="4" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
